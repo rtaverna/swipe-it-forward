@@ -1,25 +1,25 @@
-$(function() {
-  var menu = $('#navigation'),
-    pos = menu.offset()
+$(() => {
+  const menu = $("#navigation");
+  const pos = menu.offset();
 
   $(window).scroll(function() {
     if (
       $(this).scrollTop() > pos.top + menu.height() &&
-      menu.hasClass('default')
+      menu.hasClass("default")
     ) {
-      menu.fadeOut('fast', function() {
+      menu.fadeOut("fast", function() {
         $(this)
-          .removeClass('default')
-          .addClass('fixed')
-          .fadeIn('slow')
-      })
-    } else if ($(this).scrollTop() <= pos.top && menu.hasClass('fixed')) {
-      menu.fadeOut('fast', function() {
+          .removeClass("default")
+          .addClass("fixed")
+          .fadeIn("slow");
+      });
+    } else if ($(this).scrollTop() <= pos.top && menu.hasClass("fixed")) {
+      menu.fadeOut("fast", function() {
         $(this)
-          .removeClass('fixed')
-          .addClass('default')
-          .fadeIn('slow')
-      })
+          .removeClass("fixed")
+          .addClass("default")
+          .fadeIn("slow");
+      });
     }
-  })
-})
+  });
+});

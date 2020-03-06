@@ -1,135 +1,128 @@
-/*global $:false, jQuery:false, console:false */
-;(function($) {
-  'use strict'
-
-  //scroll to top
+/* global $:false, jQuery:false, console:false */
+(function($) {
+  // scroll to top
   $(window).scroll(function() {
     if ($(this).scrollTop() > 100) {
-      $('.scrollup').fadeIn()
+      $(".scrollup").fadeIn();
     } else {
-      $('.scrollup').fadeOut()
+      $(".scrollup").fadeOut();
     }
-  })
-  $('.scrollup').click(function() {
-    $('html, body').animate(
+  });
+  $(".scrollup").click(() => {
+    $("html, body").animate(
       {
         scrollTop: 0
       },
       600
-    )
-    return false
-  })
+    );
+    return false;
+  });
 
-  $('.accordion').on('show', function(e) {
+  $(".accordion").on("show", e => {
     $(e.target)
-      .prev('.accordion-heading')
-      .find('.accordion-toggle')
-      .addClass('active')
+      .prev(".accordion-heading")
+      .find(".accordion-toggle")
+      .addClass("active");
     $(e.target)
-      .prev('.accordion-heading')
-      .find('.accordion-toggle i')
-      .removeClass('icon-plus')
+      .prev(".accordion-heading")
+      .find(".accordion-toggle i")
+      .removeClass("icon-plus");
     $(e.target)
-      .prev('.accordion-heading')
-      .find('.accordion-toggle i')
-      .addClass('icon-minus')
-  })
+      .prev(".accordion-heading")
+      .find(".accordion-toggle i")
+      .addClass("icon-minus");
+  });
 
-  $('.accordion').on('hide', function(e) {
+  $(".accordion").on("hide", function(e) {
     $(this)
-      .find('.accordion-toggle')
+      .find(".accordion-toggle")
       .not($(e.target))
-      .removeClass('active')
+      .removeClass("active");
     $(this)
-      .find('.accordion-toggle i')
+      .find(".accordion-toggle i")
       .not($(e.target))
-      .removeClass('icon-minus')
+      .removeClass("icon-minus");
     $(this)
-      .find('.accordion-toggle i')
+      .find(".accordion-toggle i")
       .not($(e.target))
-      .addClass('icon-plus')
-  })
+      .addClass("icon-plus");
+  });
 
-  //navigation
-  $('.navigation').onePageNav({
-    begin: function() {
-      console.log('start')
+  // navigation
+  $(".navigation").onePageNav({
+    begin() {
+      console.log("start");
     },
-    end: function() {
-      console.log('stop')
+    end() {
+      console.log("stop");
     },
     scrollOffset: 0
-  })
+  });
 
   // fancybox
-  $('.fancybox').fancybox({
+  $(".fancybox").fancybox({
     padding: 0,
     autoResize: true,
-    beforeShow: function() {
-      this.title = $(this.element).attr('title')
+    beforeShow() {
+      this.title = $(this.element).attr("title");
       this.title =
-        '<h4>' +
-        this.title +
-        '</h4>' +
-        '<p>' +
-        $(this.element)
+        `<h4>${this.title}</h4>` +
+        `<p>${$(this.element)
           .parent()
-          .find('img')
-          .attr('alt') +
-        '</p>'
+          .find("img")
+          .attr("alt")}</p>`;
     },
     helpers: {
       title: {
-        type: 'inside'
+        type: "inside"
       }
     }
-  })
+  });
 
-  $('.fancybox-media').fancybox({
-    openEffect: 'none',
-    closeEffect: 'none',
+  $(".fancybox-media").fancybox({
+    openEffect: "none",
+    closeEffect: "none",
     helpers: {
       media: {}
     }
-  })
+  });
 
-  //nicescroll
-  $('html').niceScroll({
+  // nicescroll
+  $("html").niceScroll({
     zindex: 999,
-    cursorborder: '',
-    cursorborderradius: '2px',
-    cursorcolor: '#191919',
+    cursorborder: "",
+    cursorborderradius: "2px",
+    cursorcolor: "#191919",
     cursoropacitymin: 0.5
-  })
+  });
 
   function initNice() {
     if ($(window).innerWidth() <= 960) {
-      $('html')
+      $("html")
         .niceScroll()
-        .remove()
+        .remove();
     } else {
-      $('html').niceScroll({
+      $("html").niceScroll({
         zindex: 999,
-        cursorborder: '',
-        cursorborderradius: '2px',
-        cursorcolor: '#191919',
+        cursorborder: "",
+        cursorborderradius: "2px",
+        cursorcolor: "#191919",
         cursoropacitymin: 0.5
-      })
+      });
     }
   }
-  $(window).load(initNice)
-  $(window).resize(initNice)
-})(jQuery)
+  $(window).load(initNice);
+  $(window).resize(initNice);
+})(jQuery);
 
-$(window).scroll(function() {
-  'use strict'
+$(window).scroll(() => {
   if ($(window).scrollTop() < 10) {
-    $('.fade')
+    $(".fade")
       .stop(true, true)
-      .fadeTo('slow', 1)
+      .fadeTo("slow", 1);
   } else {
-    $('.fade')
+    $(".fade")
       .stop(true, true)
-      .fadeTo('slow', 0.33)
+      .fadeTo("slow", 0.33);
   }
-})
+});

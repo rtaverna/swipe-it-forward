@@ -1,12 +1,12 @@
-import React from 'react'
-import {render} from 'enzyme'
+import React from "react";
+import { render } from "enzyme";
 
 const Home = () => (
   <div className="container">
     <div className="about">
       <div className="title">About</div>
       <div>
-        Welcome to Swipe It Forward, the first free ride sharing service for New
+        Velcome to Swipe It Forward, the first free ride sharing service for New
         Yorkers. We function by connecting generous owners of unlimited
         metrocards with those who cannot afford the subway. Unlimited Metrocards
         can be (legally!) swiped as many times as you want, and there is NO RULE
@@ -53,5 +53,5 @@ const Home = () => (
       </ul>
     </div>
   </div>
-)
-export default Home
+);
+export default Home;

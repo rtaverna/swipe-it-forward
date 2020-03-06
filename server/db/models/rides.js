@@ -1,10 +1,8 @@
-'use strict'
+const Sequelize = require("sequelize");
+const db = require("../db");
+const Station = require("./stations");
 
-const Sequelize = require('sequelize')
-const db = require('../db')
-const Station = require('./stations')
-
-const Ride = db.define('ride', {
+const Ride = db.define("ride", {
   swiper: Sequelize.INTEGER,
   destination: {
     type: Sequelize.STRING,
@@ -25,6 +23,6 @@ const Ride = db.define('ride', {
   //     key: 'id'
   //  }
   // }
-})
+});
 
-module.exports = Ride
+module.exports = Ride;

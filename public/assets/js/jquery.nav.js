@@ -16,29 +16,29 @@
  *   scrollSpeed: 750
  * });
  */
-/*global $:linkHref */
-;(function($, window, document, undefined) {
+/* global $:linkHref */
+(function($, window, document, undefined) {
   // our plugin constructor
-  var OnePageNav = function(elem, options) {
-    this.elem = elem
-    this.$elem = $(elem)
-    this.options = options
-    this.metadata = this.$elem.data('plugin-options')
-    this.$nav = this.$elem.find('a')
-    this.$win = $(window)
-    this.sections = {}
-    this.didScroll = false
-    this.$doc = $(document)
-    this.docHeight = this.$doc.height()
-  }
+  const OnePageNav = function(elem, options) {
+    this.elem = elem;
+    this.$elem = $(elem);
+    this.options = options;
+    this.metadata = this.$elem.data("plugin-options");
+    this.$nav = this.$elem.find("a");
+    this.$win = $(window);
+    this.sections = {};
+    this.didScroll = false;
+    this.$doc = $(document);
+    this.docHeight = this.$doc.height();
+  };
 
   // the plugin prototype
   OnePageNav.prototype = {
     defaults: {
-      currentClass: 'current',
+      currentClass: "current",
       changeHash: false,
-      easing: 'swing',
-      filter: ':not(.external)',
+      easing: "swing",
+      filter: ":not(.external)",
       scrollSpeed: 750,
       scrollOffset: 0,
       scrollThreshold: 0.5,
@@ -47,180 +47,180 @@
       scrollChange: false
     },
 
-    init: function() {
-      var self = this
+    init() {
+      const self = this;
 
       // Introduce defaults that can be extended either
       // globally or using an object literal.
-      self.config = $.extend({}, self.defaults, self.options, self.metadata)
+      self.config = $.extend({}, self.defaults, self.options, self.metadata);
 
-      //Filter any links out of the nav
-      if (self.config.filter !== '') {
-        self.$nav = self.$nav.filter(self.config.filter)
+      // Filter any links out of the nav
+      if (self.config.filter !== "") {
+        self.$nav = self.$nav.filter(self.config.filter);
       }
 
-      //Handle clicks on the nav
-      self.$nav.on('click.onePageNav', $.proxy(self.handleClick, self))
+      // Handle clicks on the nav
+      self.$nav.on("click.onePageNav", $.proxy(self.handleClick, self));
 
-      //Get the section positions
-      self.getPositions()
+      // Get the section positions
+      self.getPositions();
 
-      //Handle scroll changes
-      self.bindInterval()
+      // Handle scroll changes
+      self.bindInterval();
 
-      //Update the positions on resize too
-      self.$win.on('resize.onePageNav', $.proxy(self.getPositions, self))
+      // Update the positions on resize too
+      self.$win.on("resize.onePageNav", $.proxy(self.getPositions, self));
 
-      return this
+      return this;
     },
 
-    adjustNav: function(self, $parent) {
+    adjustNav(self, $parent) {
       self.$elem
-        .find('.' + self.config.currentClass)
-        .removeClass(self.config.currentClass)
-      $parent.addClass(self.config.currentClass)
+        .find(`.${self.config.currentClass}`)
+        .removeClass(self.config.currentClass);
+      $parent.addClass(self.config.currentClass);
     },
 
-    bindInterval: function() {
-      var self = this
-      var docHeight
+    bindInterval() {
+      const self = this;
+      let docHeight;
 
-      self.$win.on('scroll.onePageNav', function() {
-        self.didScroll = true
-      })
+      self.$win.on("scroll.onePageNav", () => {
+        self.didScroll = true;
+      });
 
-      self.t = setInterval(function() {
-        docHeight = self.$doc.height()
+      self.t = setInterval(() => {
+        docHeight = self.$doc.height();
 
-        //If it was scrolled
+        // If it was scrolled
         if (self.didScroll) {
-          self.didScroll = false
-          self.scrollChange()
+          self.didScroll = false;
+          self.scrollChange();
         }
 
-        //If the document height changes
+        // If the document height changes
         if (docHeight !== self.docHeight) {
-          self.docHeight = docHeight
-          self.getPositions()
+          self.docHeight = docHeight;
+          self.getPositions();
         }
-      }, 250)
+      }, 250);
     },
 
-    getHash: function($link) {
-      return $link.attr('href').split('#')[1]
+    getHash($link) {
+      return $link.attr("href").split("#")[1];
     },
 
-    getPositions: function() {
-      var self = this
-      var linkHref
-      var topPos
-      var $target
+    getPositions() {
+      const self = this;
+      let linkHref;
+      let topPos;
+      let $target;
 
       self.$nav.each(function() {
-        linkHref = self.getHash($(this))
-        $target = $('#' + linkHref)
+        linkHref = self.getHash($(this));
+        $target = $(`#${linkHref}`);
 
         if ($target.length) {
-          topPos = $target.offset().top
+          topPos = $target.offset().top;
           self.sections[linkHref] =
-            Math.round(topPos) - self.config.scrollOffset
+            Math.round(topPos) - self.config.scrollOffset;
         }
-      })
+      });
     },
 
-    getSection: function(windowPos) {
-      var returnValue = null
-      var windowHeight = Math.round(
+    getSection(windowPos) {
+      let returnValue = null;
+      const windowHeight = Math.round(
         this.$win.height() * this.config.scrollThreshold
-      )
+      );
 
-      for (var section in this.sections) {
+      for (const section in this.sections) {
         if (this.sections[section] - windowHeight < windowPos) {
-          returnValue = section
+          returnValue = section;
         }
       }
 
-      return returnValue
+      return returnValue;
     },
 
-    handleClick: function(e) {
-      var self = this
-      var $link = $(e.currentTarget)
-      var $parent = $link.parent()
-      var newLoc = '#' + self.getHash($link)
+    handleClick(e) {
+      const self = this;
+      const $link = $(e.currentTarget);
+      const $parent = $link.parent();
+      const newLoc = `#${self.getHash($link)}`;
 
       if (!$parent.hasClass(self.config.currentClass)) {
-        //Start callback
+        // Start callback
         if (self.config.begin) {
-          self.config.begin()
+          self.config.begin();
         }
 
-        //Change the highlighted nav item
-        self.adjustNav(self, $parent)
+        // Change the highlighted nav item
+        self.adjustNav(self, $parent);
 
-        //Removing the auto-adjust on scroll
-        self.unbindInterval()
+        // Removing the auto-adjust on scroll
+        self.unbindInterval();
 
-        //Scroll to the correct position
+        // Scroll to the correct position
         $.scrollTo(newLoc, self.config.scrollSpeed, {
-          axis: 'y',
+          axis: "y",
           easing: self.config.easing,
           offset: {
             top: -self.config.scrollOffset
           },
-          onAfter: function() {
-            //Do we need to change the hash?
+          onAfter() {
+            // Do we need to change the hash?
             if (self.config.changeHash) {
-              window.location.hash = newLoc
+              window.location.hash = newLoc;
             }
 
-            //Add the auto-adjust on scroll back in
-            self.bindInterval()
+            // Add the auto-adjust on scroll back in
+            self.bindInterval();
 
-            //End callback
+            // End callback
             if (self.config.end) {
-              self.config.end()
+              self.config.end();
             }
           }
-        })
+        });
       }
 
-      e.preventDefault()
+      e.preventDefault();
     },
 
-    scrollChange: function() {
-      var windowTop = this.$win.scrollTop()
-      var position = this.getSection(windowTop)
-      var $parent
+    scrollChange() {
+      const windowTop = this.$win.scrollTop();
+      const position = this.getSection(windowTop);
+      let $parent;
 
-      //If the position is set
+      // If the position is set
       if (position !== null) {
-        $parent = this.$elem.find('a[href$="#' + position + '"]').parent()
+        $parent = this.$elem.find(`a[href$="#${position}"]`).parent();
 
-        //If it's not already the current section
+        // If it's not already the current section
         if (!$parent.hasClass(this.config.currentClass)) {
-          //Change the highlighted nav item
-          this.adjustNav(this, $parent)
+          // Change the highlighted nav item
+          this.adjustNav(this, $parent);
 
-          //If there is a scrollChange callback
+          // If there is a scrollChange callback
           if (this.config.scrollChange) {
-            this.config.scrollChange($parent)
+            this.config.scrollChange($parent);
           }
         }
       }
     },
 
-    unbindInterval: function() {
-      clearInterval(this.t)
-      this.$win.unbind('scroll.onePageNav')
+    unbindInterval() {
+      clearInterval(this.t);
+      this.$win.unbind("scroll.onePageNav");
     }
-  }
+  };
 
-  OnePageNav.defaults = OnePageNav.prototype.defaults
+  OnePageNav.defaults = OnePageNav.prototype.defaults;
 
   $.fn.onePageNav = function(options) {
     return this.each(function() {
-      new OnePageNav(this, options).init()
-    })
-  }
-})(jQuery, window, document)
+      new OnePageNav(this, options).init();
+    });
+  };
+})(jQuery, window, document);
