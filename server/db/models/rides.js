@@ -1,6 +1,5 @@
 const Sequelize = require("sequelize");
 const db = require("../db");
-const Station = require("./stations");
 
 const Ride = db.define("ride", {
   swiper: Sequelize.INTEGER,
