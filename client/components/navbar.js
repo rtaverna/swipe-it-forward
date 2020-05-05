@@ -5,35 +5,57 @@ import { Link } from "react-router-dom";
 import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
-  <div className="navBar">
-    <div className="subheader">
-      <h1>SWIPE IT FORWARD</h1>
-      <img
-        className="logo"
-        src="https://i.pinimg.com/originals/ac/68/19/ac6819074c09735e0841d67209d16710.jpg"
+  <nav class="navbar navbar-expand-lg">
+    <img 
+        src="https://i.pinimg.com/originals/ac/68/19/ac6819074c09735e0841d67209d16710.jpg" width="60" height="50" class="d-inline-block align-top" alt=""
       />
-
-      <nav className="links">
-        {isLoggedIn ? (
-          <div>
-            {/* The navbar will show these links after you log in */}
-            <Link to="/home">Home</Link>
-            <a href="#" onClick={handleClick}>
-              Logout
-            </a>
-          </div>
-        ) : (
-          <div>
-            {/* The navbar will show these links before you log in */}
-            <Link to="/login">Login</Link>
-            <Link to="/signup">Sign Up</Link>
-          </div>
-        )}
-      </nav>
+  <a class="navbar-brand" href="#">Swipe It Forward</a>
+ 
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      {isLoggedIn ? <a class="nav-item nav-link" href="/home">Home</a> : <div></div>}
+      {isLoggedIn ? <a class="nav-item nav-link" href="#" onClick={handleClick}>Logout</a> : <div></div>}
+      {isLoggedIn ? <div></div> : <a class="nav-item nav-link" href="/signup" >Sign Up</a>}
+      {isLoggedIn ? <div></div> : <a class="nav-item nav-link" href="/login" >Login</a>} 
+      <a class="nav-item nav-link" href="#">About</a>
     </div>
-
-    <hr />
   </div>
+</nav>
+  // <nav class="navbar navbar-expand-lg">
+  //   <a class="navbar-brand" href="#">
+  //     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  //       <span class="navbar-toggler-icon"></span>
+  //     </button>
+      
+  //     <div class="collapse navbar-collapse" id="navbarNav">
+  //     <img 
+  //       src="https://i.pinimg.com/originals/ac/68/19/ac6819074c09735e0841d67209d16710.jpg" width="60" height="50" class="d-inline-block align-top" alt=""
+  //     />
+  //     <h1>SWIPE IT FORWARD</h1>
+      
+  //       <ul class="navbar-nav">
+      
+  //       {isLoggedIn ? (
+  //         <li>
+  //           {/* The navbar will show these links after you log in */}
+  //           <Link to="/home">Home</Link>
+  //           <a href="#" onClick={handleClick}>
+  //             Logout
+  //           </a>
+  //         </li>
+  //       ) : (
+  //         <li>
+  //           {/* The navbar will show these links before you log in */}
+  //           <Link to="/login">Login</Link>
+  //           <Link to="/signup">Sign Up</Link>
+  //         </li>
+  //       )}
+  //       </ul>
+  //     </div>
+  //   </a>
+
+    
+  // </nav>
 );
 
 /**

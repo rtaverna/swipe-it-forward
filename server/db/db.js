@@ -8,7 +8,9 @@ if (process.env.HEROKU_POSTGRESQL_BLACK_URL) {
     logging: false
   });
 } else {
-  db = new Sequelize("postgres://localhost:5432/Stackathon");
+  db = new Sequelize("postgres://localhost:5432/Stackathon", {
+    logging: false
+  });
 }
 module.exports = db;
 

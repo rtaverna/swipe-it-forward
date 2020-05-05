@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const {Op} = require("sequelize")
 const { Ride, Station } = require("../db/models");
 
 module.exports = router;
@@ -11,6 +12,23 @@ router.get("/", async (req, res, next) => {
       // }]
     });
 
+    res.send(rides);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:userId", async (req, res, next) => {
+  try {
+    const rides = await Ride.findAll({
+      where:  {
+        [Op.or]: [
+          {swiper: req.params.userId},
+          {rider: req.params.userId}
+        ]
+      }
+    });
+    console.log('rideshere',rides)
     res.send(rides);
   } catch (err) {
     next(err);

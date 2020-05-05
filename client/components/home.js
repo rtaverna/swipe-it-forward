@@ -2,9 +2,9 @@ import React from "react";
 import { render } from "enzyme";
 
 const Home = () => (
-  <div className="container">
+  <div >
     <div className="about">
-      <div className="title">About</div>
+      <div>About</div>
       <div>
         Velcome to Swipe It Forward, the first free ride sharing service for New
         Yorkers. We function by connecting generous owners of unlimited
@@ -18,8 +18,8 @@ const Home = () => (
         yourself. Swipe it Forward!
       </div>
     </div>
-    <div className="learnMore">
-      <div className="title">Learn More</div>
+    <div>
+      <div >Learn More</div>
       <div>
         If you want to know more about our cause and what else you can do to
         help, check out these resources below:

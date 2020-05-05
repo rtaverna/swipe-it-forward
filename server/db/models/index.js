@@ -8,6 +8,8 @@ const Ride = require("./rides");
 Ride.belongsTo(Station);
 Station.hasMany(Ride);
 
+
+
 module.exports = {
   User,
   Station,
