@@ -87,11 +87,6 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
-}
-
 form div {
   margin: 1em;
   display: inline-block;
@@ -133,22 +128,19 @@ input {
 .textarea {
   background-color: black;
 }
-.navBar {
-  text-align: center;
-}
 
 .header {
   font-size: 13px;
   text-align: right;
 }
-
+/* 
 .container {
   display: flex;
   justify-content: space-between;
   margin-top: 25px;
   margin: 10px;
   overflow: auto;
-}
+} */
 
 .list {
   text-align: left;
@@ -179,6 +171,19 @@ input {
   flex-direction: column;
   font-size: 15px;
   width: 150px;
+}
+.historyBlock {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.userHistory {
+  margin-bottom: 15px;
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 2px;
+  width: 50%;
+  height: 45%;
 }
 /* margin: 0;
 	padding: 0;

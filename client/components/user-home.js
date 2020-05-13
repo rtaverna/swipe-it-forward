@@ -1,41 +1,65 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import {getRides} from "../store"
+import PastRide from "./past-ride"
 
 /**
  * COMPONENT
  */
-const UserHome = props => {
-  const {email} = props
+class UserHome extends React.Component {
+  constructor()  {
+    super()
 
-  return (
+  }
+
+  componentDidMount() {
+      this.props.getRides(this.props.id)
+  }
+
+  render()  {
+    let email = this.props.email
+    console.log('rides',this.props.rides)
+    return (
     <div className="body">
-      <h3 className="header">Welcome, {email}</h3>
+      <h3 className="header">
+        Welcome,
+        {email}
+      </h3>
 
       <h2 className="actionRoot">Today I want to:</h2>
       <div className="actions">
         <Link to="/ride">Ride</Link>
         <Link to="/swipe">Swipe</Link>
       </div>
+      <br></br>
+      <div className="actionRoot">My previous Rides</div>
+      <div className="historyBlock">{this.props.rides.map(ride => (<div className="userHistory" key={ride.id}><PastRide ride={ride} /></div>))}</div>
     </div>
-  )
-}
+  );
+  }
+};
 
 /**
  * CONTAINER
  */
-const mapState = state => {
-  return {
-    email: state.user.email
-  }
-}
+const mapState = state => ({
+  email: state.user.email,
+  id: state.user.id,
+  rides: state.ride.rides
+});
 
-export default connect(mapState)(UserHome)
+const mapDispatch = dispatch => ({
+  getRides: userId  => dispatch(getRides(userId))
+
+})
+
+export default connect(mapState,mapDispatch)(UserHome);
 
 /**
  * PROP TYPES
  */
 UserHome.propTypes = {
   email: PropTypes.string
-}
+};
