@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:station", async (req, res, next) => {
   try {
-    console.log("params", req.params);
+    console.log("??????");
     const station = await Station.findOne({
       where: {
         name: req.params.station

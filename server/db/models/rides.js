@@ -2,7 +2,10 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 
 const Ride = db.define("ride", {
-  swiper: Sequelize.INTEGER,
+  swiper: {
+    type: Sequelize.INTEGER,
+    defaultValue: null
+  },
   destination: {
     type: Sequelize.STRING,
     allowNull: false

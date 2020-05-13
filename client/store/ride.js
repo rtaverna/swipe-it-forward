@@ -6,7 +6,7 @@ const FOUND_RIDE = "FOUND_RIDE";
 
 const initialState = {
   ride: {},
-  rides: []
+  rides: [],
 };
 
 const gotRide = ride => ({ type: GOT_RIDE, ride });
@@ -15,7 +15,7 @@ const foundRide = ride => ({ type: FOUND_RIDE, ride });
 
 export const getRide = obj => async dispatch => {
   try {
-    console.log("destin and arr params", obj);
+    console.log("getting ride?",obj, typeof obj.arrival)
     const ride = await axios.post("/api/rides/", obj);
     dispatch(gotRide(ride));
   } catch (error) {
@@ -27,17 +27,17 @@ export const getRides = userId => async dispatch => {
   try {
     console.log("finding past rides", userId);
     const rides = await axios.get(`/api/rides/${userId}`);
-    console.log('rides?',rides.data)
+    console.log("rides?", rides.data);
     dispatch(gotRides(rides.data));
   } catch (error) {
     console.error(error);
   }
 };
 
-
 export const findRide = obj => async dispatch => {
   try {
-    console.log("destin and arr params", obj);
+    console.log("finding ride?",obj)
+
     const ride = await axios.put("/api/rides/", obj);
     dispatch(foundRide(ride));
   } catch (error) {
@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
     case GOT_RIDE:
       return { ...state, ride: action.ride };
     case GOT_RIDES:
-      return {...state, rides: action.rides}
+      return { ...state, rides: action.rides };
     case FOUND_RIDE:
       return { ...state, ride: action.ride };
     default:
