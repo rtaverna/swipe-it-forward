@@ -34,14 +34,14 @@ router.get("/:userId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
-    console.log('reqbody',req.body)
+    console.log("reqbody", req.body);
     const station = await Station.findOne({
       where: {
         name: req.body.destination
       }
-    })
-    console.log('statuin',station)
-    console.log('newre?',req.body)
+    });
+    console.log("statuin", station);
+    console.log("newre?", req.body);
 
     let ride = await Ride.findOne({
       where: {
@@ -53,9 +53,9 @@ router.post("/", async (req, res, next) => {
       //   model: Station
       // }]
     });
-    console.log('???')
+    console.log("???");
     if (ride) {
-      console.log('rideexist',ride)
+      console.log("rideexist", ride);
 
       ride.swiper = req.session.passport.user;
       ride.stationId = station.id;
@@ -82,7 +82,7 @@ router.put("/", async (req, res, next) => {
         name: req.body.departure
       }
     });
-    console.log("station?:",station)
+    console.log("station?:", station);
 
     let ride = await Ride.findOne({
       where: {
@@ -104,10 +104,8 @@ router.put("/", async (req, res, next) => {
         stationId: station.id
       });
       res.status(201).send(ride);
-    
     }
-  }
-   catch (error) {
+  } catch (error) {
     console.error(error);
   }
 });

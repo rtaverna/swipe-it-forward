@@ -12,7 +12,6 @@ const initialState = {
 const gotStations = stations => ({ type: GOT_STATIONS, stations });
 const gotLocation = location => ({ type: GOT_LOCATION, location });
 
-
 export const getStations = () => async dispatch => {
   try {
     const stations = await axios.get("/api/stations");
@@ -25,7 +24,7 @@ export const getStations = () => async dispatch => {
 export const getLocation = station => async dispatch => {
   try {
     console.log("loca?????", station);
-    const {data} = await axios.get(`api/stations/${station}`);
+    const { data } = await axios.get(`api/stations/${station}`);
     console.log("resdataaaa", data);
 
     dispatch(gotLocation(data));

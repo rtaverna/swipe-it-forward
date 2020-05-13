@@ -6,56 +6,61 @@ import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn }) => (
   <div className="pos-f-t">
-  <div className="collapse" id="navbarToggleExternalContent">
-    <div className="bg-dark p-4">
-    <div className="navbar-nav">
-        {isLoggedIn ? (
-          <a className="nav-item nav-link" href="/home">
-            Home
+    <div className="collapse" id="navbarToggleExternalContent">
+      <div className="bg-dark p-4">
+        <div className="navbar-nav">
+          {isLoggedIn ? (
+            <a className="nav-item nav-link" href="/home">
+              Home
+            </a>
+          ) : (
+            <div />
+          )}
+          {isLoggedIn ? (
+            <a className="nav-item nav-link" href="#" onClick={handleClick}>
+              Logout
+            </a>
+          ) : (
+            <div />
+          )}
+          {isLoggedIn ? (
+            <div />
+          ) : (
+            <a className="nav-item nav-link" href="/signup">
+              Sign Up
+            </a>
+          )}
+          {isLoggedIn ? (
+            <div />
+          ) : (
+            <a className="nav-item nav-link" href="/login">
+              Login
+            </a>
+          )}
+          <a className="nav-item nav-link" href="/about">
+            About
           </a>
-        ) : (
-          <div />
-        )}
-        {isLoggedIn ? (
-          <a className="nav-item nav-link" href="#" onClick={handleClick}>
-            Logout
-          </a>
-        ) : (
-          <div />
-        )}
-        {isLoggedIn ? (
-          <div />
-        ) : (
-          <a className="nav-item nav-link" href="/signup">
-            Sign Up
-          </a>
-        )}
-        {isLoggedIn ? (
-          <div />
-        ) : (
-          <a className="nav-item nav-link" href="/login">
-            Login
-          </a>
-        )}
-        <a className="nav-item nav-link" href="/about">
-          About
-        </a>
+        </div>
       </div>
     </div>
+    <nav className="navbar navbar-dark">
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarToggleExternalContent"
+        aria-controls="navbarToggleExternalContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
+    </nav>
   </div>
-  <nav className="navbar navbar-dark">
-    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
-  </nav>
- 
-</div>
   // <div>
-    
-  // <nav class="navbar navbar-expand-lg">
-   
 
-  
+  // <nav class="navbar navbar-expand-lg">
+
   //   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
   //     <div class="navbar-nav">
   //       {isLoggedIn ? (
@@ -92,7 +97,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => (
   //     </div>
   //   </div>
   // </nav>
-    
+
   //  </div>
   // <nav class="navbar navbar-expand-lg">
   //   <a class="navbar-brand" href="#">

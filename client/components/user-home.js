@@ -13,10 +13,9 @@ class UserHome extends React.Component {
     super();
 
     this.state = {
-      showMenu: false,
-    }
+      showMenu: false
+    };
     this.showMenu = this.showMenu.bind(this);
-
   }
 
   componentDidMount() {
@@ -25,7 +24,7 @@ class UserHome extends React.Component {
   showMenu(event) {
     this.setState({
       ...this.state,
-      showMenu: !this.state.showMenu,
+      showMenu: !this.state.showMenu
     });
   }
   render() {
@@ -34,7 +33,7 @@ class UserHome extends React.Component {
     return (
       <div className="userHome">
         <h3 className="header">
-          Welcome, 
+          Welcome,
           {email}
         </h3>
 
@@ -52,15 +51,15 @@ class UserHome extends React.Component {
         {this.state.showMenu ? (
           <div className="menu">
             {this.props.rides.map(ride => (
-            <div className="userHistory" key={ride.id}>
-              <PastRide ride={ride} />
-            </div>
-          ))}
-        </div>
-    ) : null}
-    </div>)
+              <div className="userHistory" key={ride.id}>
+                <PastRide ride={ride} />
+              </div>
+            ))}
+          </div>
+        ) : null}
+      </div>
+    );
   }
-  
 }
 
 /**
