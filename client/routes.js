@@ -9,7 +9,8 @@ import {
   Swipe,
   Ride,
   RiderConfirmation,
-  Home
+  Home,
+  About
 } from "./components";
 import { me } from "./store";
 
@@ -29,6 +30,7 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        <Route path="/about" component={About} />
 
         {isLoggedIn && (
           <Switch>
@@ -36,12 +38,11 @@ class Routes extends Component {
 
             <Route path="/home" component={UserHome} />
             <Route exact path="/ride" component={Ride} />
-            <Route path="/ride/pending" component={RiderConfirmation} />
             <Route path="/swipe" component={Swipe} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        <Route component={Home} />
       </Switch>
     );
   }

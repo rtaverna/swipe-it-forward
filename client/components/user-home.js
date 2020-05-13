@@ -2,44 +2,65 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import {getRides} from "../store"
-import PastRide from "./past-ride"
+import { getRides } from "../store";
+import PastRide from "./past-ride";
 
 /**
  * COMPONENT
  */
 class UserHome extends React.Component {
-  constructor()  {
-    super()
+  constructor() {
+    super();
 
+    this.state = {
+      showMenu: false
+    };
+    this.showMenu = this.showMenu.bind(this);
   }
 
   componentDidMount() {
-      this.props.getRides(this.props.id)
+    this.props.getRides(this.props.id);
   }
-
-  render()  {
-    let email = this.props.email
-    console.log('rides',this.props.rides)
+  showMenu(event) {
+    this.setState({
+      ...this.state,
+      showMenu: !this.state.showMenu
+    });
+  }
+  render() {
+    let email = this.props.email;
+    console.log("rides", this.props.rides);
     return (
-    <div className="body">
-      <h3 className="header">
-        Welcome,
-        {email}
-      </h3>
+      <div className="userHome">
+        <h3 className="header">
+          Welcome,
+          {email}
+        </h3>
 
-      <h2 className="actionRoot">Today I want to:</h2>
-      <div className="actions">
-        <Link to="/ride">Ride</Link>
-        <Link to="/swipe">Swipe</Link>
+        <h2 className="actionRoot">I want to:</h2>
+        <div className="actions">
+          <Link to="/ride">Get a Ride</Link>
+          <Link to="/swipe">Give a Swipe</Link>
+        </div>
+        <br />
+        {/* <div className="actionRoot">My previous Rides</div> */}
+        <div />
+        <button className="select" onClick={this.showMenu}>
+          {this.state.showMenu ? "Hide" : "Show"} my previous rides
+        </button>
+        {this.state.showMenu ? (
+          <div className="menu">
+            {this.props.rides.map(ride => (
+              <div className="userHistory" key={ride.id}>
+                <PastRide ride={ride} />
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
-      <br></br>
-      <div className="actionRoot">My previous Rides</div>
-      <div className="historyBlock">{this.props.rides.map(ride => (<div className="userHistory" key={ride.id}><PastRide ride={ride} /></div>))}</div>
-    </div>
-  );
+    );
   }
-};
+}
 
 /**
  * CONTAINER
@@ -51,11 +72,10 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  getRides: userId  => dispatch(getRides(userId))
+  getRides: userId => dispatch(getRides(userId))
+});
 
-})
-
-export default connect(mapState,mapDispatch)(UserHome);
+export default connect(mapState, mapDispatch)(UserHome);
 
 /**
  * PROP TYPES

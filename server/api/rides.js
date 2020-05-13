@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const {Op} = require("sequelize")
+const { Op } = require("sequelize");
 const { Ride, Station } = require("../db/models");
 
 module.exports = router;
@@ -21,14 +21,11 @@ router.get("/", async (req, res, next) => {
 router.get("/:userId", async (req, res, next) => {
   try {
     const rides = await Ride.findAll({
-      where:  {
-        [Op.or]: [
-          {swiper: req.params.userId},
-          {rider: req.params.userId}
-        ]
+      where: {
+        [Op.or]: [{ swiper: req.params.userId }, { rider: req.params.userId }]
       }
     });
-    console.log('rideshere',rides)
+    console.log("rideshere", rides);
     res.send(rides);
   } catch (err) {
     next(err);
@@ -37,22 +34,29 @@ router.get("/:userId", async (req, res, next) => {
 
 router.post("/", async (req, res, next) => {
   try {
+    console.log("reqbody", req.body);
     const station = await Station.findOne({
       where: {
         name: req.body.destination
       }
     });
+    console.log("statuin", station);
+    console.log("newre?", req.body);
+
     let ride = await Ride.findOne({
       where: {
         swiper: null,
         destination: req.body.destination,
         arrival: req.body.arrival
-        // include:  [{
-        //   model: Station
-        // }]
       }
+      // },include:  [{
+      //   model: Station
+      // }]
     });
+    console.log("???");
     if (ride) {
+      console.log("rideexist", ride);
+
       ride.swiper = req.session.passport.user;
       ride.stationId = station.id;
       ride.save();
@@ -78,6 +82,7 @@ router.put("/", async (req, res, next) => {
         name: req.body.departure
       }
     });
+    console.log("station?:", station);
 
     let ride = await Ride.findOne({
       where: {
