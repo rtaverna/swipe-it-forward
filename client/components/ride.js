@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { getStations, findRide, getLocation } from "../store";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import ReactLoading from 'react-loading';
+import Select  from 'react-select';
 
 class Ride extends React.Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class Ride extends React.Component {
     this.state = {
       showMenu: false,
       departure: null,
-      leaving: "",
+      leaving: 12,
       latitude: null,
       longitude: null,
       address: null
@@ -19,7 +21,9 @@ class Ride extends React.Component {
     this.showMenu = this.showMenu.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+
   }
 
   componentDidMount() {
@@ -45,24 +49,35 @@ class Ride extends React.Component {
 
   handleChange() {
     event.preventDefault();
+    
+    this.setState({
+      departure: event.target.textContent
+    });
+    
+  }
+  handleTimeChange()  {
+    event.preventDefault()
     this.setState({
       leaving: event.target.value
-    });
+    })
   }
 
   handleSubmit() {
     event.preventDefault();
-    this.props.findRide({
+    console.log('state',this.state)
+    setInterval(() =>this.props.findRide({
       departure: this.state.departure,
       leaving: this.state.leaving
-    });
+    }),5000);
     const station = this.state.departure;
     this.props.getLocation(station);
   }
 
   // eslint-disable-next-line complexity
   render() {
-    if (this.props.location.id) {
+    let stationNames = this.props.stations.map(station => {return { value: station.name, label: station.name}})
+    console.log('state: ',this.state)
+    if (this.props.ride.data && this.props.location.id) {
       console.log("renderprops", this.props);
       const long = Number(this.props.location.coordinates.slice(7, 14));
       const lat = Number(this.props.location.coordinates.slice(26, 33));
@@ -73,31 +88,41 @@ class Ride extends React.Component {
             <div>
               Look out for {this.props.ride.data.swiper} around{" "}
               {this.props.ride.arrival} at {this.props.location.name}{" "}
+            
+            <div>
+              <Map google={this.props.google} initialCenter={center} style={style} zoom={12}>
+                <Marker name={"Your position"} position={center} />
+              </Map>
+            </div>
             </div>
           ) : (
             <div>
               Please wait while we match you with a swiper at{" "}
               {this.props.location.name}!
+              <ReactLoading type={'spinningBubbles'} color={'#007bff'} height={667} width={375}  />
             </div>
+            
           )}
-          <Map
-            google={this.props.google}
-            initialCenter={center}
-            style={style}
-            zoom={12}
-          >
-            <Marker name={"Your position"} position={center} />
-          </Map>
+      
         </div>
-      );
+      )
     }
 
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="station">
           <div className="input">Departing From:</div>
+          
+          <div>
+            <Select
+              options={stationNames}
+              onChange={this.handleChange}
+              openMenuOnClick={false}
+              style={styleSearch}
+            />
+          </div>
           <div />
-          <button className="select" onClick={this.showMenu}>
+          {/* <button className="select" onClick={this.showMenu}>
             {this.state.departure ? this.state.departure : "Select"}
           </button>
           {this.state.showMenu ? (
@@ -108,7 +133,7 @@ class Ride extends React.Component {
                 </li>
               ))}
             </div>
-          ) : null}
+          ) : null} */}
         </div>
         <div className="time">
           <div>Desired Departure Time:</div>
@@ -116,7 +141,7 @@ class Ride extends React.Component {
             type="time"
             name="arrival"
             className="textinput"
-            onChange={this.handleChange}
+            onChange={this.handleTimeChange}
             value={this.state.leaving}
           />
           <br />
@@ -149,14 +174,16 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const style = {
+  position: "absolute",
   width: "50%",
-  height: "50%",
-  position: "relative",
-  top: "50px",
-  display: "inline-block",
-  overflow: "hidden"
-};
+  margin: "auto",
+  height: "40%",
+  padding: "28%"
 
+};
+const styleSearch = {
+  width: "10%"
+}
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
 })(connect(mapStateToProps, mapDispatchToProps)(Ride));

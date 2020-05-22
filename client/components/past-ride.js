@@ -3,19 +3,9 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 
 const PastRide = props => {
-  const { ride } = props;
   return (
-    <Card style={{ width: "18rem" }}>
-      <Card.Img variant="top" src="holder.js/100px180" />
-      <Card.Body>
-        <Card.Title>Card Title</Card.Title>
-        <Card.Text>
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </Card.Text>
-        <Button variant="primary">Go somewhere</Button>
-      </Card.Body>
-    </Card>
+    <div className="pastRide">Your ride with User {props.ride.swiper === props.userId ? props.ride.rider : props.ride.swiper} at {props.ride.destination} on {props.ride.createdAt.slice(0,10)}  </div>
+    
   );
 };
 export default PastRide;

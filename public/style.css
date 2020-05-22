@@ -1,6 +1,7 @@
 body {
   background-color: black;
   color: #007bff;
+  margin: auto;
 }
 button.navbar-toggler {
   border-color: rgb(57, 57, 175);
@@ -15,7 +16,12 @@ h1.title {
   font-size: 24px;
   margin-bottom: 10%;
 }
-
+.userHome {
+  margin: auto;
+}
+div {
+  margin: auto;
+}
 div.userHome {
   text-align: center;
 }
@@ -25,6 +31,9 @@ div.historyBlock {
 h3.header {
   text-align: center;
 }
+div.menu {
+  padding-left: 38%;
+}
 .authform {
   text-align: center;
   margin-top: 10%;
@@ -32,6 +41,8 @@ h3.header {
 form {
   text-align: center;
   margin-top: 10%;
+  margin: auto;
+  width: fit-content;
 }
 input {
   background-color: rgb(76, 73, 82);
@@ -55,6 +66,21 @@ div.card {
   background-color: black;
   border-style: solid;
   border-color: #007bff;
+}
+div.pastride {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  width: 400px;
+  border-radius: 5px;
+  border-style: solid;
+  padding: 2px;
+}
+div.pastride:hover {
+  transform: scale(1.5, 2);
+  color: aliceblue;
+  background-color: grey;
 }
 .content {
   display: flex;

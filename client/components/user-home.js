@@ -50,9 +50,9 @@ class UserHome extends React.Component {
         </button>
         {this.state.showMenu ? (
           <div className="menu">
-            {this.props.rides.map(ride => (
+            {this.props.rides.slice(0).reverse().map(ride => (
               <div className="userHistory" key={ride.id}>
-                <PastRide ride={ride} />
+                <PastRide ride={ride} userId={this.props.id}/>
               </div>
             ))}
           </div>

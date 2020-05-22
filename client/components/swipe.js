@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { getStations, getRide, getLocation } from "../store";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import ReactLoading from 'react-loading';
+import Select  from 'react-select';
 
 import SwiperConfirmation from "./swiper-confirmation";
 class Swipe extends React.Component {
@@ -19,6 +21,7 @@ class Swipe extends React.Component {
     this.showMenu = this.showMenu.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -45,24 +48,37 @@ class Swipe extends React.Component {
 
   handleChange() {
     event.preventDefault();
+    console.log('evt: ',event)
+    this.setState({
+      destination: event.target.textContent
+    });
+  }
+
+  handleTimeChange()  {
+    event.preventDefault()
     this.setState({
       arrival: event.target.value
-    });
+    })
   }
 
   handleSubmit() {
     event.preventDefault();
-    this.props.getRide({
+    // this.props.getRide({
+    //   destination: this.state.destination,
+    //   arrival: this.state.arrival
+    // });
+    setInterval(() => this.props.getRide({
       destination: this.state.destination,
       arrival: this.state.arrival
-    });
+    }),5000)
     const station = this.state.destination;
     this.props.getLocation(station);
   }
 
   // eslint-disable-next-line complexity
   render() {
-    console.log("renderorios", this.props);
+    let stationNames = this.props.stations.map(station => {return { value: station.name, label: station.name}})
+    console.log("state: ", this.state);
     // if (this.props.ride.ride.data) {
     //   if (this.props.ride.ride.data.rider) {
     //     return <SwiperConfirmation ride={this.props.ride.ride} />;
@@ -81,21 +97,20 @@ class Swipe extends React.Component {
             <div>
               Look out for {this.props.ride.data.rider} around{" "}
               {this.props.ride.data.arrival} at {this.props.location.name}{" "}
+              <div>
+                <Map google={this.props.google} initialCenter={center} style={style} zoom={12}>
+                  <Marker name={"Your position"} position={center} />
+                </Map>
+              </div>
             </div>
           ) : (
             <div>
               Please wait while we match you with a rider at{" "}
               {this.props.location.name}!
+              <ReactLoading type={'spinningBubbles'} color={'#007bff'} height={667} width={375}  />
             </div>
           )}
-          <Map
-            google={this.props.google}
-            initialCenter={center}
-            style={style}
-            zoom={12}
-          >
-            <Marker name={"Your position"} position={center} />
-          </Map>
+         
         </div>
       );
     }
@@ -103,12 +118,21 @@ class Swipe extends React.Component {
       <form onSubmit={this.handleSubmit}>
         <div className="station">
           <div className="input">Destination:</div>
+          <div>
+            <Select
+              options={stationNames}
+              onChange={this.handleChange}
+              openMenuOnClick={false}
+              style={styleSearch}
+            />
+          </div>
+          </div>
 
-          <button className="select" onClick={this.showMenu}>
+          {/* <button className="select" onClick={this.showMenu}>
             {this.state.destination ? this.state.destination : "Select"}
-          </button>
+          </button> */}
 
-          {this.state.showMenu ? (
+          {/* {this.state.showMenu ? (
             <div className="menu">
               {this.props.stations.map(station => (
                 <li key={station.id} onClick={this.handleSelect}>
@@ -116,15 +140,15 @@ class Swipe extends React.Component {
                 </li>
               ))}
             </div>
-          ) : null}
-        </div>
+          ) : null} */}
+        
         <div className="time">
           <div>ETA:</div>
           <input
             type="time"
             name="arrival"
             className="textinput"
-            onChange={this.handleChange}
+            onChange={this.handleTimeChange}
             value={this.state.arrival}
           />
           <br />
@@ -164,7 +188,9 @@ const style = {
   display: "inline-block",
   overflow: "hidden"
 };
-
+const styleSearch = {
+  width: "10%"
+}
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
 })(connect(mapStateToProps, mapDispatchToProps)(Swipe));
