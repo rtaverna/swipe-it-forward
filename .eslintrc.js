@@ -1,22 +1,23 @@
 module.exports = {
   env: {
+    node: true,
     browser: true,
     es6: true
   },
-  extends: "eslint:recommended",
+  extends: 'eslint:recommended',
   globals: {
-    Atomics: "readonly",
-    SharedArrayBuffer: "readonly"
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly'
   },
   parserOptions: {
     ecmaFeatures: {
       jsx: true
     },
     ecmaVersion: 2018,
-    sourceType: "module"
+    sourceType: 'module'
   },
-  plugins: ["react"],
+  plugins: ['react'],
   rules: {
-    "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }]
+    'react/jsx-filename-extension': [1, {extensions: ['.js', '.jsx']}]
   }
-};
+}
