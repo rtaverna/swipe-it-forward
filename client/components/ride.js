@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { getStations, findRide, getLocation } from "../store";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import ReactLoading from 'react-loading';
-import Select  from 'react-select';
+import ReactLoading from "react-loading";
+import Select from "react-select";
 
 class Ride extends React.Component {
   constructor(props) {
@@ -23,7 +23,6 @@ class Ride extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleTimeChange = this.handleTimeChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
   }
 
   componentDidMount() {
@@ -49,34 +48,39 @@ class Ride extends React.Component {
 
   handleChange() {
     event.preventDefault();
-    
+
     this.setState({
       departure: event.target.textContent
     });
-    
   }
-  handleTimeChange()  {
-    event.preventDefault()
+  handleTimeChange() {
+    event.preventDefault();
     this.setState({
       leaving: event.target.value
-    })
+    });
   }
 
   handleSubmit() {
     event.preventDefault();
-    console.log('state',this.state)
-    setInterval(() =>this.props.findRide({
-      departure: this.state.departure,
-      leaving: this.state.leaving
-    }),5000);
+    console.log("state", this.state);
+    setInterval(
+      () =>
+        this.props.findRide({
+          departure: this.state.departure,
+          leaving: this.state.leaving
+        }),
+      5000
+    );
     const station = this.state.departure;
     this.props.getLocation(station);
   }
 
   // eslint-disable-next-line complexity
   render() {
-    let stationNames = this.props.stations.map(station => {return { value: station.name, label: station.name}})
-    console.log('state: ',this.state)
+    let stationNames = this.props.stations.map(station => {
+      return { value: station.name, label: station.name };
+    });
+    console.log("state: ", this.state);
     if (this.props.ride.data && this.props.location.id) {
       console.log("renderprops", this.props);
       const long = Number(this.props.location.coordinates.slice(7, 14));
@@ -88,31 +92,38 @@ class Ride extends React.Component {
             <div>
               Look out for {this.props.ride.data.swiper} around{" "}
               {this.props.ride.arrival} at {this.props.location.name}{" "}
-            
-            <div>
-              <Map google={this.props.google} initialCenter={center} style={style} zoom={12}>
-                <Marker name={"Your position"} position={center} />
-              </Map>
-            </div>
+              <div>
+                <Map
+                  google={this.props.google}
+                  initialCenter={center}
+                  style={style}
+                  zoom={12}
+                >
+                  <Marker name={"Your position"} position={center} />
+                </Map>
+              </div>
             </div>
           ) : (
             <div>
               Please wait while we match you with a swiper at{" "}
               {this.props.location.name}!
-              <ReactLoading type={'spinningBubbles'} color={'#007bff'} height={667} width={375}  />
+              <ReactLoading
+                type={"spinningBubbles"}
+                color={"#007bff"}
+                height={667}
+                width={375}
+              />
             </div>
-            
           )}
-      
         </div>
-      )
+      );
     }
 
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="station">
           <div className="input">Departing From:</div>
-          
+
           <div>
             <Select
               options={stationNames}
@@ -179,11 +190,10 @@ const style = {
   margin: "auto",
   height: "40%",
   padding: "28%"
-
 };
 const styleSearch = {
   width: "10%"
-}
+};
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
 })(connect(mapStateToProps, mapDispatchToProps)(Ride));

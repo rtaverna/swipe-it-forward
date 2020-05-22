@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { getStations, getRide, getLocation } from "../store";
 import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import ReactLoading from 'react-loading';
-import Select  from 'react-select';
+import ReactLoading from "react-loading";
+import Select from "react-select";
 
 import SwiperConfirmation from "./swiper-confirmation";
 class Swipe extends React.Component {
@@ -48,17 +48,17 @@ class Swipe extends React.Component {
 
   handleChange() {
     event.preventDefault();
-    console.log('evt: ',event)
+    console.log("evt: ", event);
     this.setState({
       destination: event.target.textContent
     });
   }
 
-  handleTimeChange()  {
-    event.preventDefault()
+  handleTimeChange() {
+    event.preventDefault();
     this.setState({
       arrival: event.target.value
-    })
+    });
   }
 
   handleSubmit() {
@@ -67,17 +67,23 @@ class Swipe extends React.Component {
     //   destination: this.state.destination,
     //   arrival: this.state.arrival
     // });
-    setInterval(() => this.props.getRide({
-      destination: this.state.destination,
-      arrival: this.state.arrival
-    }),5000)
+    setInterval(
+      () =>
+        this.props.getRide({
+          destination: this.state.destination,
+          arrival: this.state.arrival
+        }),
+      5000
+    );
     const station = this.state.destination;
     this.props.getLocation(station);
   }
 
   // eslint-disable-next-line complexity
   render() {
-    let stationNames = this.props.stations.map(station => {return { value: station.name, label: station.name}})
+    let stationNames = this.props.stations.map(station => {
+      return { value: station.name, label: station.name };
+    });
     console.log("state: ", this.state);
     // if (this.props.ride.ride.data) {
     //   if (this.props.ride.ride.data.rider) {
@@ -98,7 +104,12 @@ class Swipe extends React.Component {
               Look out for {this.props.ride.data.rider} around{" "}
               {this.props.ride.data.arrival} at {this.props.location.name}{" "}
               <div>
-                <Map google={this.props.google} initialCenter={center} style={style} zoom={12}>
+                <Map
+                  google={this.props.google}
+                  initialCenter={center}
+                  style={style}
+                  zoom={12}
+                >
                   <Marker name={"Your position"} position={center} />
                 </Map>
               </div>
@@ -107,10 +118,14 @@ class Swipe extends React.Component {
             <div>
               Please wait while we match you with a rider at{" "}
               {this.props.location.name}!
-              <ReactLoading type={'spinningBubbles'} color={'#007bff'} height={667} width={375}  />
+              <ReactLoading
+                type={"spinningBubbles"}
+                color={"#007bff"}
+                height={667}
+                width={375}
+              />
             </div>
           )}
-         
         </div>
       );
     }
@@ -126,13 +141,13 @@ class Swipe extends React.Component {
               style={styleSearch}
             />
           </div>
-          </div>
+        </div>
 
-          {/* <button className="select" onClick={this.showMenu}>
+        {/* <button className="select" onClick={this.showMenu}>
             {this.state.destination ? this.state.destination : "Select"}
           </button> */}
 
-          {/* {this.state.showMenu ? (
+        {/* {this.state.showMenu ? (
             <div className="menu">
               {this.props.stations.map(station => (
                 <li key={station.id} onClick={this.handleSelect}>
@@ -141,7 +156,7 @@ class Swipe extends React.Component {
               ))}
             </div>
           ) : null} */}
-        
+
         <div className="time">
           <div>ETA:</div>
           <input
@@ -190,7 +205,7 @@ const style = {
 };
 const styleSearch = {
   width: "10%"
-}
+};
 export default GoogleApiWrapper({
   apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
 })(connect(mapStateToProps, mapDispatchToProps)(Swipe));
