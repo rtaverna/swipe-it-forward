@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 const about = () => (
   <div className="containment">
@@ -100,14 +100,14 @@ const about = () => (
                 className="card-list-item"
                 href="https://www.wnyc.org/story/can-i-get-swipe-can-we-get-trouble/"
               >
-                Legality
+                Is it legal to use this app?
               </a>
             </div>
           </div>
         </div>
       </div>
 
-      <b>
+      {/* <b>
         {" "}
         Welcome to Swipe It Forward, the first free ride sharing service for New
         Yorkers. We function by connecting generous owners of unlimited
@@ -119,12 +119,12 @@ const about = () => (
         well as discriminatory. Making an account with us offers you the
         opportunity to either offer free rides to those in need, or request them
         yourself. Swipe it Forward!
-      </b>
+      </b> */}
     </div>
   </div>
-);
+)
 
-export default about;
+export default about
 
 {
   /* {/* <div>

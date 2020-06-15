@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 // const StationMenu = props =>  {
 //     return(
@@ -14,44 +14,43 @@ import React from "react";
 
 class StationMenu extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showMenu: false
-    };
+    }
 
-    this.showMenu = this.showMenu.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.showMenu = this.showMenu.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   showMenu(event) {
-    event.preventDefault();
+    event.preventDefault()
 
     this.setState({
       showMenu: true,
       arrival: undefined
-    });
+    })
   }
 
   handleSelect(event) {
-    this.setState({ showMenu: false, destination: event.target.value });
+    this.setState({showMenu: false, destination: event.target.value})
   }
 
   handleChange(event) {
     this.setState({
       ...this.state,
       arrival: event.target.value
-    });
+    })
   }
 
   render() {
-    console.log("local state", this.state);
     return (
       <div>
         <div>Destination:</div>
         <button onClick={this.showMenu}>
-          {this.state.destination ? this.state.destination : "Select"}
+          {this.state.destination ? this.state.destination : 'Select'}
         </button>
 
         {this.state.showMenu ? (
@@ -71,8 +70,8 @@ class StationMenu extends React.Component {
           value={this.state.arrival}
         />
       </div>
-    );
+    )
   }
 }
 
-export default StationMenu;
+export default StationMenu

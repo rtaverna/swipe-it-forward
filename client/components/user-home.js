@@ -1,35 +1,35 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getRides } from "../store";
-import PastRide from "./past-ride";
+import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import {getRides} from '../store'
+import PastRide from './past-ride'
+import Chat from './chat'
 
 /**
  * COMPONENT
  */
 class UserHome extends React.Component {
   constructor() {
-    super();
+    super()
 
     this.state = {
       showMenu: false
-    };
-    this.showMenu = this.showMenu.bind(this);
+    }
+    this.showMenu = this.showMenu.bind(this)
   }
 
   componentDidMount() {
-    this.props.getRides(this.props.id);
+    this.props.getRides(this.props.id)
   }
   showMenu(event) {
     this.setState({
       ...this.state,
       showMenu: !this.state.showMenu
-    });
+    })
   }
   render() {
-    let email = this.props.email;
-    console.log("rides", this.props.rides);
+    let email = this.props.email
     return (
       <div className="userHome">
         <h3 className="header">
@@ -45,8 +45,9 @@ class UserHome extends React.Component {
         <br />
         {/* <div className="actionRoot">My previous Rides</div> */}
         <div />
+        {/* <Chat /> */}
         <button className="select" onClick={this.showMenu}>
-          {this.state.showMenu ? "Hide" : "Show"} my previous rides
+          {this.state.showMenu ? 'Hide' : 'Show'} my previous rides
         </button>
         {this.state.showMenu ? (
           <div className="menu">
@@ -61,7 +62,7 @@ class UserHome extends React.Component {
           </div>
         ) : null}
       </div>
-    );
+    )
   }
 }
 
@@ -72,17 +73,17 @@ const mapState = state => ({
   email: state.user.email,
   id: state.user.id,
   rides: state.ride.rides
-});
+})
 
 const mapDispatch = dispatch => ({
   getRides: userId => dispatch(getRides(userId))
-});
+})
 
-export default connect(mapState, mapDispatch)(UserHome);
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES
  */
 UserHome.propTypes = {
   email: PropTypes.string
-};
+}

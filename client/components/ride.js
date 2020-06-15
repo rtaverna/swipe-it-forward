@@ -1,13 +1,13 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getStations, findRide, getLocation } from "../store";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import ReactLoading from "react-loading";
-import Select from "react-select";
+import React from 'react'
+import {connect} from 'react-redux'
+import {getStations, findRide, getLocation} from '../store'
+import {Map, GoogleApiWrapper, Marker} from 'google-maps-react'
+import ReactLoading from 'react-loading'
+import Select from 'react-select'
 
 class Ride extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showMenu: false,
@@ -16,53 +16,52 @@ class Ride extends React.Component {
       latitude: null,
       longitude: null,
       address: null
-    };
+    }
 
-    this.showMenu = this.showMenu.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.showMenu = this.showMenu.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.props.getStations();
+    this.props.getStations()
   }
 
   showMenu(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       ...this.state,
       showMenu: true
-    });
+    })
   }
 
   handleSelect() {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       ...this.state,
       showMenu: false,
       departure: event.target.value
-    });
+    })
   }
 
   handleChange() {
-    event.preventDefault();
+    event.preventDefault()
 
     this.setState({
       departure: event.target.textContent
-    });
+    })
   }
   handleTimeChange() {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       leaving: event.target.value
-    });
+    })
   }
 
   handleSubmit() {
-    event.preventDefault();
-    console.log("state", this.state);
+    event.preventDefault()
     setInterval(
       () =>
         this.props.findRide({
@@ -70,28 +69,26 @@ class Ride extends React.Component {
           leaving: this.state.leaving
         }),
       5000
-    );
-    const station = this.state.departure;
-    this.props.getLocation(station);
+    )
+    const station = this.state.departure
+    this.props.getLocation(station)
   }
 
   // eslint-disable-next-line complexity
   render() {
     let stationNames = this.props.stations.map(station => {
-      return { value: station.name, label: station.name };
-    });
-    console.log("state: ", this.state);
+      return {value: station.name, label: station.name}
+    })
     if (this.props.ride.data && this.props.location.id) {
-      console.log("renderprops", this.props);
-      const long = Number(this.props.location.coordinates.slice(7, 14));
-      const lat = Number(this.props.location.coordinates.slice(26, 33));
-      let center = { lat: lat, lng: long };
+      const long = Number(this.props.location.coordinates.slice(7, 14))
+      const lat = Number(this.props.location.coordinates.slice(26, 33))
+      let center = {lat: lat, lng: long}
       return (
         <div className="riderConf">
           {this.props.ride.data.swiper ? (
             <div>
-              Look out for {this.props.ride.data.swiper} around{" "}
-              {this.props.ride.arrival} at {this.props.location.name}{" "}
+              Look out for {this.props.ride.data.swiper} around{' '}
+              {this.props.ride.arrival} at {this.props.location.name}{' '}
               <div>
                 <Map
                   google={this.props.google}
@@ -99,24 +96,24 @@ class Ride extends React.Component {
                   style={style}
                   zoom={12}
                 >
-                  <Marker name={"Your position"} position={center} />
+                  <Marker name={'Your position'} position={center} />
                 </Map>
               </div>
             </div>
           ) : (
             <div>
-              Please wait while we match you with a swiper at{" "}
+              Please wait while we match you with a swiper at{' '}
               {this.props.location.name}!
               <ReactLoading
-                type={"spinningBubbles"}
-                color={"#007bff"}
+                type={'spinningBubbles'}
+                color={'#007bff'}
                 height={667}
                 width={375}
               />
             </div>
           )}
         </div>
-      );
+      )
     }
 
     return (
@@ -168,7 +165,7 @@ class Ride extends React.Component {
           </button>
         </div>
       </form>
-    );
+    )
   }
 }
 
@@ -176,24 +173,24 @@ const mapStateToProps = state => ({
   stations: state.station.stations,
   ride: state.ride.ride,
   location: state.station.location
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   getStations: () => dispatch(getStations()),
   findRide: obj => dispatch(findRide(obj)),
   getLocation: station => dispatch(getLocation(station))
-});
+})
 
 const style = {
-  position: "absolute",
-  width: "50%",
-  margin: "auto",
-  height: "40%",
-  padding: "28%"
-};
+  position: 'absolute',
+  width: '50%',
+  margin: 'auto',
+  height: '40%',
+  padding: '28%'
+}
 const styleSearch = {
-  width: "10%"
-};
+  width: '10%'
+}
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
-})(connect(mapStateToProps, mapDispatchToProps)(Ride));
+  apiKey: 'AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA'
+})(connect(mapStateToProps, mapDispatchToProps)(Ride))

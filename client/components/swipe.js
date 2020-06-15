@@ -1,72 +1,72 @@
-import React from "react";
-import { connect } from "react-redux";
-import { getStations, getRide, getLocation } from "../store";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
-import ReactLoading from "react-loading";
-import Select from "react-select";
+import React from 'react'
+import {connect} from 'react-redux'
+import {getStations, getRide, getLocation} from '../store'
+import {Map, GoogleApiWrapper, Marker} from 'google-maps-react'
+import ReactLoading from 'react-loading'
+import Select from 'react-select'
 
-import SwiperConfirmation from "./swiper-confirmation";
+import SwiperConfirmation from './swiper-confirmation'
 class Swipe extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       showMenu: false,
-      arrival: "",
+      arrival: '',
       destination: null,
       latitude: null,
       longitude: null
-    };
+    }
 
-    this.showMenu = this.showMenu.bind(this);
-    this.handleSelect = this.handleSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleTimeChange = this.handleTimeChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.showMenu = this.showMenu.bind(this)
+    this.handleSelect = this.handleSelect.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+    this.handleTimeChange = this.handleTimeChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.props.getStations();
+    this.props.getStations()
   }
 
   showMenu(event) {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       ...this.state,
       showMenu: true
-    });
+    })
   }
 
   handleSelect() {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       ...this.state,
       showMenu: false,
       destination: event.target.value
-    });
+    })
   }
 
   handleChange() {
-    event.preventDefault();
-    console.log("evt: ", event);
+    event.preventDefault()
     this.setState({
       destination: event.target.textContent
-    });
+    })
   }
 
   handleTimeChange() {
-    event.preventDefault();
+    event.preventDefault()
     this.setState({
       arrival: event.target.value
-    });
+    })
   }
 
   handleSubmit() {
-    event.preventDefault();
+    event.preventDefault()
     // this.props.getRide({
     //   destination: this.state.destination,
     //   arrival: this.state.arrival
     // });
+
     setInterval(
       () =>
         this.props.getRide({
@@ -74,17 +74,16 @@ class Swipe extends React.Component {
           arrival: this.state.arrival
         }),
       5000
-    );
-    const station = this.state.destination;
-    this.props.getLocation(station);
+    )
+    const station = this.state.destination
+    this.props.getLocation(station)
   }
 
   // eslint-disable-next-line complexity
   render() {
     let stationNames = this.props.stations.map(station => {
-      return { value: station.name, label: station.name };
-    });
-    console.log("state: ", this.state);
+      return {value: station.name, label: station.name}
+    })
     // if (this.props.ride.ride.data) {
     //   if (this.props.ride.ride.data.rider) {
     //     return <SwiperConfirmation ride={this.props.ride.ride} />;
@@ -93,16 +92,15 @@ class Swipe extends React.Component {
     // }
     // {
     if (this.props.location.id && this.props.ride.data) {
-      console.log("renderprops", this.props);
-      const long = Number(this.props.location.coordinates.slice(7, 14));
-      const lat = Number(this.props.location.coordinates.slice(26, 33));
-      let center = { lat: lat, lng: long };
+      const long = Number(this.props.location.coordinates.slice(7, 14))
+      const lat = Number(this.props.location.coordinates.slice(26, 33))
+      let center = {lat: lat, lng: long}
       return (
         <div className="riderConf">
           {this.props.ride.data.rider ? (
             <div>
-              Look out for {this.props.ride.data.rider} around{" "}
-              {this.props.ride.data.arrival} at {this.props.location.name}{" "}
+              Look out for {this.props.ride.data.rider} around{' '}
+              {this.props.ride.data.arrival} at {this.props.location.name}{' '}
               <div>
                 <Map
                   google={this.props.google}
@@ -110,24 +108,24 @@ class Swipe extends React.Component {
                   style={style}
                   zoom={12}
                 >
-                  <Marker name={"Your position"} position={center} />
+                  <Marker name={'Your position'} position={center} />
                 </Map>
               </div>
             </div>
           ) : (
             <div>
-              Please wait while we match you with a rider at{" "}
+              Please wait while we match you with a rider at{' '}
               {this.props.location.name}!
               <ReactLoading
-                type={"spinningBubbles"}
-                color={"#007bff"}
+                type={'spinningBubbles'}
+                color={'#007bff'}
                 height={667}
                 width={375}
               />
             </div>
           )}
         </div>
-      );
+      )
     }
     return (
       <form onSubmit={this.handleSubmit}>
@@ -179,7 +177,7 @@ class Swipe extends React.Component {
           </button>
         </div>
       </form>
-    );
+    )
   }
 }
 
@@ -187,25 +185,25 @@ const mapStateToProps = state => ({
   stations: state.station.stations,
   ride: state.ride.ride,
   location: state.station.location
-});
+})
 
 const mapDispatchToProps = dispatch => ({
   getStations: () => dispatch(getStations()),
   getRide: obj => dispatch(getRide(obj)),
   getLocation: station => dispatch(getLocation(station))
-});
+})
 
 const style = {
-  width: "50%",
-  height: "50%",
-  position: "relative",
-  top: "50px",
-  display: "inline-block",
-  overflow: "hidden"
-};
+  width: '50%',
+  height: '50%',
+  position: 'relative',
+  top: '50px',
+  display: 'inline-block',
+  overflow: 'hidden'
+}
 const styleSearch = {
-  width: "10%"
-};
+  width: '10%'
+}
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA"
-})(connect(mapStateToProps, mapDispatchToProps)(Swipe));
+  apiKey: 'AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA'
+})(connect(mapStateToProps, mapDispatchToProps)(Swipe))
