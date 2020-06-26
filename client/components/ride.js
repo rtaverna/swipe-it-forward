@@ -192,5 +192,5 @@ const styleSearch = {
   width: '10%'
 }
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA'
+  apiKey: process.env.GOOGLE_MAPS_API
 })(connect(mapStateToProps, mapDispatchToProps)(Ride))
