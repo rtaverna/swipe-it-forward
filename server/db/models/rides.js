@@ -1,7 +1,7 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
+const Sequelize = require('sequelize')
+const db = require('../db')
 
-const Ride = db.define("ride", {
+const Ride = db.define('ride', {
   swiper: {
     type: Sequelize.INTEGER,
     defaultValue: null
@@ -18,13 +18,6 @@ const Ride = db.define("ride", {
     type: Sequelize.INTEGER,
     defaultValue: null
   }
-  // stationId:  {
-  //   type: Sequelize.INTEGER,
-  //   references: {
-  //     model: Station,
-  //     key: 'id'
-  //  }
-  // }
-});
+})
 
-module.exports = Ride;
+module.exports = Ride

@@ -84,13 +84,7 @@ class Swipe extends React.Component {
     let stationNames = this.props.stations.map(station => {
       return {value: station.name, label: station.name}
     })
-    // if (this.props.ride.ride.data) {
-    //   if (this.props.ride.ride.data.rider) {
-    //     return <SwiperConfirmation ride={this.props.ride.ride} />;
-    //   }
-    //   return <div>Please be patient while we match you with a rider!</div>;
-    // }
-    // {
+
     if (this.props.location.id && this.props.ride.data) {
       const long = Number(this.props.location.coordinates.slice(7, 14))
       const lat = Number(this.props.location.coordinates.slice(26, 33))

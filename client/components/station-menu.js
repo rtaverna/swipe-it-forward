@@ -1,17 +1,5 @@
 import React from 'react'
 
-// const StationMenu = props =>  {
-//     return(
-//       <div className='menu'>
-
-//           {props.stations.map(station => <li key={station.id}><button>{station.name}</button></li>)}
-
-//       </div>
-//     )
-//   }
-
-//   export default StationMenu
-
 class StationMenu extends React.Component {
   constructor(props) {
     super(props)
