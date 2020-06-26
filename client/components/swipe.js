@@ -62,10 +62,10 @@ class Swipe extends React.Component {
 
   handleSubmit() {
     event.preventDefault()
-    // this.props.getRide({
-    //   destination: this.state.destination,
-    //   arrival: this.state.arrival
-    // });
+    this.props.getRide({
+      destination: this.state.destination,
+      arrival: this.state.arrival
+    })
 
     setInterval(
       () =>
