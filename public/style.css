@@ -16,6 +16,11 @@ h1.title {
   font-size: 24px;
   margin-bottom: 10%;
 }
+h1.aboutTitle {
+  text-align: center;
+  font-family: Futura, 'Trebuchet MS', Arial, sans-serif;
+  font-size: 24px;
+}
 .userHome {
   margin: auto;
 }
@@ -89,6 +94,11 @@ div.pastride:hover {
   justify-content: flex-start;
   padding-left: 2%;
 }
+
+img {
+  width: 100%;
+  margin: auto;
+}
 .actionRoot {
   text-align: center;
   font-size: small;
@@ -143,10 +153,38 @@ div.subtitle {
   font-weight: bolder;
   text-align: center;
 }
-/*
-.aboutPage	{
-	display: flex;
-} */
+
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+  color: black;
+  margin-bottom: 50px;
+}
+.aboutContent div {
+  padding-top: 40px;
+}
+a.firstContentBlock {
+  padding-top: 0px;
+}
+.aboutContent img {
+  padding-top: 40px;
+}
+.aboutContent h2 {
+  text-align: center;
+}
+div.infoBox {
+  margin-left: 400px;
+  margin-right: 400px;
+  font-size: 24;
+}
+div.infoBox a.quoteCitation {
+  padding-left: 480px;
+  font-size: 12;
+}
+.infoBox a {
+  font-size: 24;
+}
 .navbar-toggler-icon {
   color: rgb(57, 57, 175);
   font-size: large;
@@ -185,6 +223,7 @@ ul {
     width: 25%;
   }
 }
+
 /*
 .container {
   display: flex;
