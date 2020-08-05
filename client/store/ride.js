@@ -15,6 +15,7 @@ const foundRide = ride => ({type: FOUND_RIDE, ride})
 
 export const getRide = obj => async dispatch => {
   try {
+    console.log('getting ride!')
     const ride = await axios.post('/api/rides/', obj)
     dispatch(gotRide(ride))
   } catch (error) {
@@ -33,7 +34,7 @@ export const getRides = userId => async dispatch => {
 
 export const findRide = obj => async dispatch => {
   try {
-    const ride = await axios.put('/api/rides/', obj)
+    const ride = await axios.post('/api/rides/ride', obj)
     dispatch(foundRide(ride))
   } catch (error) {
     console.error(error)

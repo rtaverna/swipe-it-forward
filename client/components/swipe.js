@@ -26,6 +26,7 @@ class Swipe extends React.Component {
   }
 
   componentDidMount() {
+    console.log('props', this.props)
     this.props.getStations()
   }
 
@@ -62,19 +63,12 @@ class Swipe extends React.Component {
 
   handleSubmit() {
     event.preventDefault()
+    console.log('?')
     this.props.getRide({
       destination: this.state.destination,
       arrival: this.state.arrival
     })
 
-    setInterval(
-      () =>
-        this.props.getRide({
-          destination: this.state.destination,
-          arrival: this.state.arrival
-        }),
-      5000
-    )
     const station = this.state.destination
     this.props.getLocation(station)
   }
@@ -116,6 +110,7 @@ class Swipe extends React.Component {
                 height={667}
                 width={375}
               />
+              <button onClick={this.handleSubmit}>refresh</button>
             </div>
           )}
         </div>

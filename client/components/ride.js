@@ -62,6 +62,16 @@ class Ride extends React.Component {
 
   handleSubmit() {
     event.preventDefault()
+    this.props.findRide({
+      departure: this.state.departure,
+      leaving: this.state.leaving
+    })
+    if (this.state.ride) {
+      if (this.state.ride.rider) {
+        console.log('<><F')
+        return
+      }
+    }
     setInterval(
       () =>
         this.props.findRide({

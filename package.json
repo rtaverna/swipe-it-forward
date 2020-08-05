@@ -4,9 +4,9 @@
   "description": "Some boilerplate code to get you started - get shakin'!",
   "eslintConfig": {
     "env": {
-        "browser": true,
-        "node": true,
-        "es6": true
+      "browser": true,
+      "node": true,
+      "es6": true
     }
   },
   "engines": {
@@ -38,7 +38,6 @@
   "lint-staged": {
     "*.{js,jsx}": [
       "prettier --write",
-
       "git add"
     ],
     "*.{css,scss,json,md}": [
