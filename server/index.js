@@ -14,8 +14,6 @@ const socketio = require('socket.io')
 
 module.exports = app
 
-require('dotenv').config()
-console.log('api: ', process.env.GOOGLE_MAPS_API)
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
 if (process.env.NODE_ENV === 'test') {

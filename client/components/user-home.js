@@ -43,9 +43,7 @@ class UserHome extends React.Component {
           <Link to="/swipe">Give a Swipe</Link>
         </div>
         <br />
-        {/* <div className="actionRoot">My previous Rides</div> */}
         <div />
-        {/* <Chat /> */}
         <button className="select" onClick={this.showMenu}>
           {this.state.showMenu ? 'Hide' : 'Show'} my previous rides
         </button>
@@ -66,9 +64,6 @@ class UserHome extends React.Component {
   }
 }
 
-/**
- * CONTAINER
- */
 const mapState = state => ({
   email: state.user.email,
   id: state.user.id,
@@ -81,9 +76,6 @@ const mapDispatch = dispatch => ({
 
 export default connect(mapState, mapDispatch)(UserHome)
 
-/**
- * PROP TYPES
- */
 UserHome.propTypes = {
   email: PropTypes.string
 }

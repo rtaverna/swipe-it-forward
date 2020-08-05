@@ -26,7 +26,6 @@ class Swipe extends React.Component {
   }
 
   componentDidMount() {
-    console.log('props', this.props)
     this.props.getStations()
   }
 
@@ -63,7 +62,6 @@ class Swipe extends React.Component {
 
   handleSubmit() {
     event.preventDefault()
-    console.log('?')
     this.props.getRide({
       destination: this.state.destination,
       arrival: this.state.arrival
@@ -130,20 +128,6 @@ class Swipe extends React.Component {
           </div>
         </div>
 
-        {/* <button className="select" onClick={this.showMenu}>
-            {this.state.destination ? this.state.destination : "Select"}
-          </button> */}
-
-        {/* {this.state.showMenu ? (
-            <div className="menu">
-              {this.props.stations.map(station => (
-                <li key={station.id} onClick={this.handleSelect}>
-                  <button value={station.name}>{station.name}</button>
-                </li>
-              ))}
-            </div>
-          ) : null} */}
-
         <div className="time">
           <div>ETA:</div>
           <input
@@ -194,5 +178,5 @@ const styleSearch = {
   width: '10%'
 }
 export default GoogleApiWrapper({
-  apiKey: 'AIzaSyDwcYwKvqD8B5m1p09e1LKdq3yaVqkn5mA'
+  apiKey: process.env.GOOGLE_MAPS_API
 })(connect(mapStateToProps, mapDispatchToProps)(Swipe))
