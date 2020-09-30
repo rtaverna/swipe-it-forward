@@ -108,7 +108,6 @@ class Swipe extends React.Component {
                 height={667}
                 width={375}
               />
-              <button onClick={this.handleSubmit}>refresh</button>
             </div>
           )}
         </div>
