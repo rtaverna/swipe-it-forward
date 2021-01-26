@@ -15,7 +15,6 @@ const foundRide = ride => ({type: FOUND_RIDE, ride})
 
 export const getRide = obj => async dispatch => {
   try {
-    console.log('getting ride!')
     const ride = await axios.post('/api/rides/', obj)
     dispatch(gotRide(ride))
   } catch (error) {

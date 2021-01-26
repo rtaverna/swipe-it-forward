@@ -6,12 +6,7 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const rides = await Ride.findAll({
-      // include: [{
-      //   model: Station
-      // }]
-    })
-
+    const rides = await Ride.findAll({})
     res.send(rides)
   } catch (err) {
     next(err)
@@ -66,7 +61,6 @@ router.post('/', async (req, res, next) => {
       if (ride) {
         console.log('new ride already created', ride)
         res.status(201).send('Loading')
-        // res.status(200).send(ride)
       } else {
         //if not, create it
         ride = await Ride.create({
@@ -115,7 +109,6 @@ router.post('/ride', async (req, res, next) => {
 
       if (ride) {
         res.status(201).send('Loading')
-        // res.status(200).send(ride)
       } else {
         ride = await Ride.create({
           destination: req.body.departure,
@@ -126,7 +119,6 @@ router.post('/ride', async (req, res, next) => {
         res.status(201).send('Loading')
       }
     }
-    // res.status(201).send(ride);
   } catch (error) {
     console.error(error)
   }

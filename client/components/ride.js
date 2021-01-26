@@ -66,25 +66,11 @@ class Ride extends React.Component {
       departure: this.state.departure,
       leaving: this.state.leaving
     })
-    if (this.state.ride) {
-      if (this.state.ride.rider) {
-        console.log('<><F')
-        return
-      }
-    }
-    setInterval(
-      () =>
-        this.props.findRide({
-          departure: this.state.departure,
-          leaving: this.state.leaving
-        }),
-      5000
-    )
+
     const station = this.state.departure
     this.props.getLocation(station)
   }
 
-  // eslint-disable-next-line complexity
   render() {
     let stationNames = this.props.stations.map(station => {
       return {value: station.name, label: station.name}
@@ -140,18 +126,6 @@ class Ride extends React.Component {
             />
           </div>
           <div />
-          {/* <button className="select" onClick={this.showMenu}>
-            {this.state.departure ? this.state.departure : "Select"}
-          </button>
-          {this.state.showMenu ? (
-            <div className="menu">
-              {this.props.stations.map(station => (
-                <li key={station.id} onClick={this.handleSelect}>
-                  <button value={station.name}>{station.name}</button>
-                </li>
-              ))}
-            </div>
-          ) : null} */}
         </div>
         <div className="time">
           <div>Desired Departure Time:</div>
